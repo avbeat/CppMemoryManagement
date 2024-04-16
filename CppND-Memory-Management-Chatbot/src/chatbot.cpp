@@ -66,7 +66,8 @@ ChatBot::~ChatBot()
 
 	ChatBot::ChatBot(ChatBot &&source) // 3 : move construtor
 {
-  std::cout << "ChatBot Move Constructor" << std::endl; 
+    std::cout << "ChatBot Move Constructor" << std::endl; 
+   
   	_image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
@@ -82,15 +83,16 @@ ChatBot &ChatBot::operator=(ChatBot &&source) // 4 : move assignment operator
     if (this == &source) {
         return *this;
     }
-    delete _image;
+
+    delete[] _image;
     _image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-   
+
+    source._image = nullptr;
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
-    source._image = nullptr;
-
+    
     return *this;
 }
 ////
@@ -134,13 +136,13 @@ void ChatBot::SetCurrentNode(GraphNode *node)
 {
     // update pointer to current node
     _currentNode = node;
-
+   
     // select a random node answer (if several answers should exist)
     std::vector<std::string> answers = _currentNode->GetAnswers();
     std::mt19937 generator(int(std::time(0)));
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
-
+    
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);
 }

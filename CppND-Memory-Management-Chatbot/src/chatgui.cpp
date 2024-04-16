@@ -135,7 +135,6 @@ ChatBotPanelDialog::~ChatBotPanelDialog()
     //// STUDENT CODE
     ////
 
-    std::cout << "ChatBotPanel Destructor" << std::endl; //TASK 1
 
     ////
     //// EOF STUDENT CODE
@@ -162,8 +161,9 @@ void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)
 
 void ChatBotPanelDialog::PrintChatbotResponse(std::string response)
 {
+    
     // convert string into wxString and add dialog element
-    wxString botText(response.c_str(), wxConvUTF8);
+    wxString botText(response.c_str(), wxConvUTF8); 
     AddDialogItem(botText, false);
 }
 
